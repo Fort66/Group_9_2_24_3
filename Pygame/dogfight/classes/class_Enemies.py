@@ -1,15 +1,27 @@
 from pygame.image import load
 from pygame.transform import scale_by
 
+from pygame.sprite import Sprite, Group
+
 from random import uniform
 
+from .class_Screen import Screen
+from .class_AllSprites import all_sprites
 
-class Enemyes:
-    def __init__(self, screen):
-        self.scr = screen
+scr = Screen()
+emenyes_group = Group()
+
+
+class Enemyes(Sprite):
+    def __init__(self):
+        Sprite.__init__(self)
+        self.scr = scr.screen
         self.image = scale_by(load('images/shutter.png').convert_alpha(), .15)
         self.generator()
         self.speed = uniform(5, 15)
+        self._layer = 2
+        emenyes_group.add(self)
+        all_sprites.add(self)
 
     def move(self):
         self.rect.move_ip(-self.speed, 0)
