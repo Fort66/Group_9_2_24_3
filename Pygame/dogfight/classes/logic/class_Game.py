@@ -3,17 +3,11 @@ pg.init()
 
 from pygame.locals import QUIT, KEYDOWN, K_ESCAPE
 
-from .class_Screen import Screen
-from .class_Player import Player
-from .class_Enemies import Enemyes
-from .class_AllSprites import all_sprites
-from .class_Clouds import Clouds
+from ..screens.class_Screen import scr
+from ..groups.class_AllSprites import all_sprites
+from .class_CreateObjects import create_objects
 
-scr = Screen()
-
-player = Player()
-enemies = [Enemyes() for _ in range(15)]
-clouds = [Clouds() for _ in range(15)]
+create_objects.create()
 
 class Game:
     def __init__(self):

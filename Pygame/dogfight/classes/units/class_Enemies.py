@@ -5,11 +5,9 @@ from pygame.sprite import Sprite, Group
 
 from random import uniform
 
-from .class_Screen import Screen
-from .class_AllSprites import all_sprites
-
-scr = Screen()
-emenyes_group = Group()
+from ..screens.class_Screen import scr
+from ..groups.class_AllSprites import all_sprites
+from ..groups.class_SpritesGroups import groups
 
 
 class Enemyes(Sprite):
@@ -18,9 +16,9 @@ class Enemyes(Sprite):
         self.scr = scr.screen
         self.image = scale_by(load('images/shutter.png').convert_alpha(), .15)
         self.generator()
-        self.speed = uniform(5, 15)
+        self.speed = uniform(5, 10)
         self._layer = 2
-        emenyes_group.add(self)
+        groups.emenyes_group.add(self)
         all_sprites.add(self)
 
     def move(self):

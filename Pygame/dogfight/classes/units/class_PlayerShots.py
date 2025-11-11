@@ -1,14 +1,10 @@
 from pygame.image import load
 from pygame.transform import scale_by, flip
 
-from pygame.sprite import Sprite, Group
+from pygame.sprite import Sprite
 
-from random import uniform
+from ..screens.class_Screen import scr
 
-from .class_Screen import Screen
-
-
-scr = Screen()
 
 
 class PlayerShoots(Sprite):

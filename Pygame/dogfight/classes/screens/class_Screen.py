@@ -13,3 +13,6 @@ class Screen:
     def __init__(self):
         self.screen = set_mode([1920, 1080], DOUBLEBUF)
         self.caption = set_caption('My Game')
+
+
+scr = Screen()

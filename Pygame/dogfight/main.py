@@ -1,5 +1,5 @@
 from pygame import quit
-from classes.class_Game import Game
+from classes.logic.class_Game import Game
 
 
 def main():

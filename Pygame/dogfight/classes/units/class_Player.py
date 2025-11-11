@@ -5,17 +5,15 @@ from pygame.transform import scale_by
 
 from pygame.sprite import Sprite, Group, groupcollide
 
-from .class_Screen import Screen
-from .class_AllSprites import all_sprites
+from ..screens.class_Screen import scr
+from ..groups.class_AllSprites import all_sprites
 from .class_PlayerShots import PlayerShoots
-from .class_Enemies import emenyes_group
+from .class_Explosions import Explosions
+from ..groups.class_SpritesGroups import groups
 
 from time import time
 
-scr = Screen()
-
-player_group = Group()
-player_rockets_group = Group()
+from icecream import ic
 
 class Player(Sprite):
     def __init__(self):
@@ -30,7 +28,7 @@ class Player(Sprite):
         self._layer = 2
         self.permission_shots = .5
         self.shoot_time = 1
-        player_group.add(self)
+        groups.player_group.add(self)
         all_sprites.add(self)
 
     def move(self):
@@ -52,8 +50,8 @@ class Player(Sprite):
             if not self.shoot_time:
                 self.shoot_time = time()
             if time() - self.shoot_time >= self.permission_shots:
-                shoots = PlayerShoots(pos=(self.rect.centerx - 46, self.rect.centery + 15), speed=15)
-                player_rockets_group.add(shoots)
+                shoots = PlayerShoots(pos=(self.rect.centerx - 46, self.rect.centery + 15), speed=10)
+                groups.player_rockets_group.add(shoots)
                 all_sprites.add(shoots)
                 self.shoot_time = time()
 
@@ -68,7 +66,11 @@ class Player(Sprite):
             self.rect.bottom = self.scr.get_height()
 
     def collision(self):
-        rockets_collide = groupcollide(emenyes_group, player_rockets_group, True, True)
+        rockets_collide = groupcollide(groups.emenyes_group, groups.player_rockets_group, True, True)
+        if rockets_collide:
+            hits = list(rockets_collide.keys())[0]
+            self.explosion_rocket = Explosions(hits.rect.center, 1)
+            self.explosion_rocket.speed = self.speed * -1
 
     def update(self):
         self.move()
