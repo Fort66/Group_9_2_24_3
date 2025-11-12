@@ -5,7 +5,7 @@ from pygame.sprite import Sprite, Group
 
 from random import uniform
 
-from ..screens.class_Screen import scr
+from ..screens.class_Screen import win
 from ..groups.class_AllSprites import all_sprites
 from ..groups.class_SpritesGroups import groups
 
@@ -13,7 +13,6 @@ from ..groups.class_SpritesGroups import groups
 class Enemyes(Sprite):
     def __init__(self):
         Sprite.__init__(self)
-        self.scr = scr.screen
         self.image = scale_by(load('images/shutter.png').convert_alpha(), .15)
         self.generator()
         self.speed = uniform(5, 10)
@@ -26,8 +25,8 @@ class Enemyes(Sprite):
 
     def generator(self):
         self.rect = self.image.get_rect(center=(
-        uniform(self.scr.get_width(), self.scr.get_width() + 500),
-        uniform(0, self.scr.get_height())
+        uniform(win.screen.get_width() + 1000, win.screen.get_width() + 5000),
+        uniform(0, win.screen.get_height())
         ))
 
     def check_position(self):
@@ -37,4 +36,4 @@ class Enemyes(Sprite):
     def update(self):
         self.move()
         self.check_position()
-        self.scr.blit(self.image, self.rect)
+        win.screen.blit(self.image, self.rect)

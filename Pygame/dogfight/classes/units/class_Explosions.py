@@ -3,7 +3,7 @@ import gif_pygame as gif
 from pygame.sprite import Sprite
 
 from ..groups.class_AllSprites import all_sprites
-from ..screens.class_Screen import scr
+from ..screens.class_Screen import win
 
 
 class Explosions(Sprite):
@@ -24,7 +24,7 @@ class Explosions(Sprite):
 
     def update(self):
         if not self.image._ended:
-            self.image.render(scr.screen, self.rect)
+            self.image.render(win.screen, self.rect)
         else:
             self.kill()
         self.move()

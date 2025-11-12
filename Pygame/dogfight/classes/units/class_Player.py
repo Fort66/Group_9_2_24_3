@@ -5,11 +5,12 @@ from pygame.transform import scale_by
 
 from pygame.sprite import Sprite, Group, groupcollide
 
-from ..screens.class_Screen import scr
+from ..screens.class_Screen import win
 from ..groups.class_AllSprites import all_sprites
 from .class_PlayerShots import PlayerShoots
 from .class_Explosions import Explosions
 from ..groups.class_SpritesGroups import groups
+from ..logic.class_Signals import signals
 
 from time import time
 
@@ -18,11 +19,10 @@ from icecream import ic
 class Player(Sprite):
     def __init__(self):
         Sprite.__init__(self)
-        self.scr = scr.screen
         self.image = scale_by(load('images/su-33.png').convert_alpha(), .2)
         self.rect = self.image.get_rect(center=(
-            self.scr.get_width() // 2,
-            self.scr.get_height() // 2
+            win.screen.get_width() // 2,
+            win.screen.get_height() // 2
         ))
         self.speed = 5
         self._layer = 2
@@ -58,12 +58,12 @@ class Player(Sprite):
     def check_position(self):
         if self.rect.left <= 0:
             self.rect.left = 0
-        if self.rect.right >= self.scr.get_width():
-            self.rect.right = self.scr.get_width()
+        if self.rect.right >= win.screen.get_width():
+            self.rect.right = win.screen.get_width()
         if self.rect.top <= 0:
             self.rect.top = 0
-        if self.rect.bottom >= self.scr.get_height():
-            self.rect.bottom = self.scr.get_height()
+        if self.rect.bottom >= win.screen.get_height():
+            self.rect.bottom = win.screen.get_height()
 
     def collision(self):
         rockets_collide = groupcollide(groups.emenyes_group, groups.player_rockets_group, True, True)
@@ -72,8 +72,12 @@ class Player(Sprite):
             self.explosion_rocket = Explosions(hits.rect.center, 1)
             self.explosion_rocket.speed = self.speed * -1
 
+        player_collide = groupcollide(groups.player_group, groups.emenyes_group, True, True)
+        if player_collide:
+            signals.change_signal('game_over')
+
     def update(self):
         self.move()
         self.check_position()
         self.collision()
-        self.scr.blit(self.image, self.rect)
+        win.screen.blit(self.image, self.rect)

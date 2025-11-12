@@ -5,7 +5,7 @@ from pygame.sprite import Sprite, Group
 
 from random import uniform, choice, randint
 
-from ..screens.class_Screen import scr
+from ..screens.class_Screen import win
 from ..groups.class_AllSprites import all_sprites
 
 # clouds_group = Group()
@@ -15,7 +15,6 @@ class Clouds(Sprite):
     def __init__(self, path):
         Sprite.__init__(self)
         self._layer = randint(1, 3)
-        self.scr = scr.screen
         match self._layer:
             case 1:
                 self.scale_value = .4
@@ -37,10 +36,10 @@ class Clouds(Sprite):
 
     def generator(self):
         self.rect = self.image.get_rect(center=(
-        uniform(self.scr.get_width() + 1000, self.scr.get_width() + 5000),
-        uniform(0, self.scr.get_height())
+        uniform(win.screen.get_width() + 1000, win.screen.get_width() + 5000),
+        uniform(0, win.screen.get_height())
         ))
 
     def update(self):
         self.move()
-        self.scr.blit(self.image, self.rect)
+        win.screen.blit(self.image, self.rect)

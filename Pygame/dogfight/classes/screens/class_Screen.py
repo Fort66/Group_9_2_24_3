@@ -15,4 +15,4 @@ class Screen:
         self.caption = set_caption('My Game')
 
 
-scr = Screen()
+win = Screen()
