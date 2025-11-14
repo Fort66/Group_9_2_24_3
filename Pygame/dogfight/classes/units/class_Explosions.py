@@ -1,4 +1,6 @@
 import gif_pygame as gif
+from gif_pygame import load
+from gif_pygame.transform import scale_by
 
 from pygame.sprite import Sprite
 
@@ -10,14 +12,19 @@ class Explosions(Sprite):
     def __init__(self, pos, types):
         Sprite.__init__(self)
         self._layer = 2
-        self.speed = None
+        self.speed = 0
 
         if types == 1:
-            self.image = gif.load('images/rocket_explosion.gif', loops=0)
-            self.image = gif.transform.scale_by(self.image, .5, new_gif=True)
+            self.create_explosion('images/explosions/rocket_explosion.gif', .5, 0)
+
+        if types == 2:
+            self.create_explosion('images/explosions/plane_explosion.gif', 1.7, 0)
 
         self.rect = self.image.get_rect(center=pos)
         all_sprites.add(self)
+
+    def create_explosion(self, path, scale_value, loops):
+         self.image = scale_by(load(path, loops=loops), scale_value, new_gif=True)
 
     def move(self):
         self.rect.move_ip(self.speed, 0)

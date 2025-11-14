@@ -5,19 +5,22 @@ from pygame.locals import QUIT, KEYDOWN, K_ESCAPE, K_F2
 
 from ..screens.class_Screen import win
 from ..groups.class_AllSprites import all_sprites
-from .class_CreateObjects import create_objects
 from .class_Signals import signals
 from ..screens.class_StartScreen import start_screen
 from ..screens.class_PauseScreen import pause_screen
 from ..screens.class_GameOverScreen import game_over_screen
+from ..groups.class_SpritesGroups import groups
 
-create_objects.create()
 
 class Game:
     def __init__(self):
         self.clock = pg.time.Clock()
         self.fps = 60
         self.loop = True
+
+    def clear_groups(self):
+        groups.clear()
+        all_sprites.empty()
 
     def run(self):
         while self.loop:

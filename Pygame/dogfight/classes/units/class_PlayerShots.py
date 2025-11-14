@@ -11,7 +11,7 @@ class PlayerShoots(Sprite):
     def __init__(self, pos, speed):
         Sprite.__init__(self)
         self.pos = pos
-        self.image = flip(scale_by(load('images/shutter.png').convert_alpha(), .15), True, False)
+        self.image = flip(scale_by(load('images/rockets/shutter.png').convert_alpha(), .15), True, False)
         self.generator()
         self.speed = speed
         self._layer = 2

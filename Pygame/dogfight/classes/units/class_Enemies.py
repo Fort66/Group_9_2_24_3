@@ -13,7 +13,7 @@ from ..groups.class_SpritesGroups import groups
 class Enemyes(Sprite):
     def __init__(self):
         Sprite.__init__(self)
-        self.image = scale_by(load('images/shutter.png').convert_alpha(), .15)
+        self.image = scale_by(load('images/rockets/shutter.png').convert_alpha(), .15)
         self.generator()
         self.speed = uniform(5, 10)
         self._layer = 2

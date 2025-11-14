@@ -7,10 +7,10 @@ from ..units.class_Clouds import Clouds
 
 
 clouds_list = [
-    'images/cloud2.png',
-    'images/cloud3.png',
-    'images/cloud4.png',
-    'images/cloud5.png'
+    'images/clouds/cloud2.png',
+    'images/clouds/cloud3.png',
+    'images/clouds/cloud4.png',
+    'images/clouds/cloud5.png'
 ]
 
 
